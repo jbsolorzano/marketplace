@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caztor - Registro</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind = {
+            config: {
+                theme: {
+                    extend: {
+                        colors: {
+                            'caztor-green': '#84CC16',
+                            'caztor-bg': '#186438',
+                            'caztor-light': '#9CA3AF',
+                            'caztor-dark': '#374151',
+                            'caztor-900': '#919191',
+                            'construction-yellow': '#ffffff',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Ensures the background covers the entire screen and the card is centered */
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            background-color: #ffffff;
+            /* Light gray background for contrast */
+        }
+
+        main {
+            flex: 1 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .comparison .seller-card {
+            opacity: 0.7;
+            transform: scale(1);
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease,
+                box-shadow 0.2s ease,
+                z-index 0.2s ease;
+        }
+
+        /* Base styles for all cards */
+        .comparison .seller-card {
+            opacity: 0.7;
+            transform: scale(1);
+            z-index: 0;
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease,
+                box-shadow 0.2s ease,
+                z-index 0.2s ease;
+        }
+
+        /* Active state: bigger, brighter, on top */
+        .comparison .seller-card--active {
+            opacity: 1;
+            transform: scale(1.25);
+            z-index: 10;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Default: Vendedor 1 is active when nothing is hovered */
+        .comparison .seller-card.default-active {
+            opacity: 1;
+            transform: scale(1.25);
+            z-index: 10;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        /* When ANY card is hovered, reset everyone to base state */
+        .comparison:has(.seller-card:hover) .seller-card {
+            opacity: 0.7;
+            transform: scale(1);
+            z-index: 0;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* When ANY card is hovered, the hovered one becomes active */
+        .comparison:has(.seller-card:hover) .seller-card:hover {
+            opacity: 1;
+            transform: scale(1.25);
+            z-index: 20;
+            box-shadow: 0 25px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        /* Base price color (inherits from text-caztor-900) */
+        .comparison .price {
+            transition: color 0.2s ease;
+        }
+
+        /* Default active: Vendedor 1 when nothing is hovered */
+        .comparison .seller-card.default-active .price {
+            color: #0f172a;
+            /* Tailwind text-slate-900 */
+        }
+
+        /* When ANY card is hovered, reset all prices to base (inherit) */
+        .comparison:has(.seller-card:hover) .seller-card .price {
+            color: inherit;
+        }
+
+        /* When ANY card is hovered, the hovered one becomes active (price too) */
+        .comparison:has(.seller-card:hover) .seller-card:hover .price {
+            color: #0f172a;
+            /* Tailwind text-slate-900 */
+        }
+    </style>
+</head>
+
+<body class="font-sans antialiased">
+
+    <!-- Header (Top Bar) -->
+    <header class="py-4 bg-caztor-bg border-b border-gray-200">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="flex-shrink-0">
+                <span class="text-3xl font-extrabold text-construction-yellow">Caztor</span>
+            </div>
+
+            <!-- Region -->
+            <div class="flex items-center space-x-4">
+                <div class="flex items-center space-x-2 text-caztor-light hover:text-white cursor-pointer">
+                    <span class="font-medium">Estado</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content: Two-Column Login Card -->
+    <main>
+        <div
+            class="max-w-6xl w-full mx-auto bg-white rounded-xl shadow-2xl overflow-hidden flex flex-col lg:flex-row h-[600px] lg:h-[700px]">
+
+            <!-- Left Panel: Value Proposition & Illustration (Dark Green) -->
+            <div class="hidden lg:flex w-full lg:w-5/12 bg-caztor-bg p-12 items-center justify-center relative">
+                <!-- Background Pattern Placeholder -->
+                <div class="absolute inset-0 opacity-10"
+                    style="background-image: url('https://img.freepik.com/premium-vector/abstract-ba…wn-brick-wall-vector-design_320153-292.jpg?w=1060&text=Pattern'); background-size: 50px 50px;">
+                </div>
+
+                <div class="text-white text-center relative z-10">
+                    <h2 class="text-4xl font-extrabold mb-4 leading-snug">
+                        ¡Más opciones, más ahorro!
+                    </h2>
+                    <p class="text-xl font-light mb-10">
+                        Compara entre vendedores destacados y lleva el mejor precio, fácil.
+                    </p>
+
+                    <!-- Placeholder Illustration matching the concept -->
+                    <div class="w-full max-w-md px-4">
+                        <div class="relative comparison">
+
+                            <!-- Vendedor 2 -->
+                            <div
+                                class="seller-card relative flex mt-1 mb-1 items-center gap-4 px-5 py-4 rounded-2xl bg-white text-caztor-900 shadow-lg cursor-pointer">
+
+                                <!-- Producto -->
+                                <div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-emerald-800/80">
+                                    <img src="https://placehold.co/80x80?text=CEM" alt="Bultos de cemento"
+                                        class="w-full h-full object-cover" />
+                                </div>
+
+                                <!-- Info -->
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm font-semibold text-amber-300">Vendedor 2</span>
+                                        <span class="text-lg font-bold text-amber-400">=</span>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="price text-2xl font-bold">$278.50</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vendedor 1 (default active) -->
+                            <div
+                                class="seller-card default-active relative flex mt-1 mb-1 items-center gap-4 px-5 py-4 rounded-2xl bg-white text-caztor-900 shadow-lg cursor-pointer">
+
+                                <!-- Producto -->
+                                <div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-emerald-800/80">
+                                    <img src="https://placehold.co/80x80?text=CEM" alt="Bultos de cemento"
+                                        class="w-full h-full object-cover" />
+                                </div>
+
+                                <!-- Info -->
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm font-semibold text-emerald-300">Vendedor 1</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-emerald-500"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 5v14M5 12l7 7 7-7" />
+                                        </svg>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="price text-2xl font-bold">$244.99</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Vendedor 3 -->
+                            <div
+                                class="seller-card relative flex mt-1 mb-1 items-center gap-4 px-5 py-4 rounded-2xl bg-white text-caztor-900 shadow-lg cursor-pointer">
+
+                                <!-- Producto -->
+                                <div class="flex-shrink-0 w-16 h-16 rounded-xl overflow-hidden bg-emerald-800/80">
+                                    <img src="https://placehold.co/80x80?text=CEM" alt="Bultos de cemento"
+                                        class="w-full h-full object-cover" />
+                                </div>
+
+                                <!-- Info -->
+                                <div class="flex-1">
+                                    <div class="flex items-center justify-between mb-1">
+                                        <span class="text-sm font-semibold text-rose-300">Vendedor 3</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-rose-500"
+                                            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 19V5M5 12l7-7 7 7" />
+                                        </svg>
+                                    </div>
+                                    <div class="flex items-center justify-between">
+                                        <span class="price text-2xl font-bold">$283.11</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Panel: Form Input (White) -->
+            <div class="w-full lg:w-7/12 bg-white p-8 sm:p-12 flex items-center justify-center">
+                <form id="waitlist-form" class="w-full max-w-sm text-navy-dark">
+                    <h2 class="text-3xl font-bold mb-2">Únete a Caztor</h2>
+                    <p class="text-md text-gray-600 mb-8">Recibe todas las actualizaciones y noticias sobre nuestro
+                        próximo lanzamiento.</p>
+
+                    <div class="space-y-8">
+                        <!-- Email field -->
+                        <div class="relative">
+                            <input type="email" placeholder="Regístrate con tu email" required
+                                class="w-full p-3 border border-gray-300 rounded-lg focus:ring-caztor-green focus:border-caztor-green text-lg outline-none transition duration-150">
+                        </div>
+
+                        <!-- Aviso de privacidad -->
+                        <p class="text-xs text-caztor-light text-left">
+                            Al hacer click en "Registrar", aceptas que Caztor use tus datos de acuerdo con nuestro
+                            <a href="#" class="text-caztor-green hover:underline font-medium">Aviso de Privacidad</a>.
+                            Escríbenos a <a href="mailto:support@caztor.com"
+                                class="text-caztor-green hover:underline">support@caztor.com</a> para solicitudes,
+                            reclamos
+                            y atención.
+                        </p>
+
+                        <!-- Submit Button (Disabled look by default) -->
+                        <button type="submit" disabled id="submit-button"
+                            class="w-full px-8 py-3 bg-gray-300 text-gray-600 font-bold text-xl rounded-full shadow-md transition duration-150 cursor-not-allowed">
+                            <span class="flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" fill="none"
+                                    viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                                    <polyline points="3 7 12 13 21 7"></polyline>
+                                </svg>
+
+                                Registrar
+                            </span>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Success Message (Styled as a simplified card) -->
+                <div id="success-message" class="hidden w-full max-w-sm">
+                    <div class="flex flex-col items-center p-8 bg-gray-50 rounded-xl">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-caztor-green mb-4"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                            <polyline points="22 4 12 14.01 9 11.01" />
+                        </svg>
+                        <h3 class="text-xl font-bold mb-2 text-navy-dark">¡Correo de confirmación enviado!</h3>
+                        <p class="text-caztor-light text-center">Si no ves el correo de confirmación en tu bandeja,
+                            revisa
+                            en correos no deseados.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer (Minimalist) -->
+    <footer class="py-4 bg-white border-t border-gray-200 flex-shrink-0">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-caztor-light">
+            &copy; 2025 Caztor | <a href="#" class="hover:text-caztor-green transition duration-150">Aviso de
+                Privacidad</a>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Form Submission Handling -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('waitlist-form');
+            const successMessage = document.getElementById('success-message');
+            const emailInput = form.querySelector('input[type="email"]');
+            const submitButton = document.getElementById('submit-button');
+            const caztorGreen = 'bg-caztor-bg'; // Custom color class defined in tailwind.config
+
+            // Simple client-side validation to enable/disable button
+            const validateInput = () => {
+                if (emailInput.checkValidity()) {
+                    submitButton.classList.remove('bg-gray-300', 'text-gray-600', 'cursor-not-allowed');
+                    submitButton.classList.add(caztorGreen, 'text-white', 'hover:opacity-90');
+                    submitButton.disabled = false;
+                } else {
+                    submitButton.classList.add('bg-gray-300', 'text-gray-600', 'cursor-not-allowed');
+                    submitButton.classList.remove(caztorGreen, 'text-white', 'hover:opacity-90');
+                    submitButton.disabled = true;
+                }
+            };
+
+            // Initial check and subsequent checks on input
+            validateInput();
+            // --- MODIFIED: Updated event listener to use emailInput ---
+            emailInput.addEventListener('input', validateInput);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                // 1. Hide the form
+                form.classList.add('hidden');
+
+                // 2. Show the success message, ensuring form is hidden
+                form.parentElement.classList.add('hidden'); // Hide the entire container div
+                successMessage.classList.remove('hidden');
+                successMessage.parentElement.classList.remove('hidden'); // Show the success message container
+            });
+        });
+    </script>
+</body>
+
+</html>
