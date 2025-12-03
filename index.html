@@ -130,8 +130,15 @@
 <body class="font-sans antialiased">
 
     <!-- Header (Top Bar) -->
-    <header class="py-4 bg-caztor-bg border-b border-gray-200">
-        <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-10">
+    <header class="relative py-4 bg-caztor-bg border-b border-gray-200">
+        <div class="absolute inset-0 pointer-events-none" style="
+            background-image: url('assets/img/ladrillos_v3.png');
+            background-size: 50px 50px;
+            background-repeat: repeat;
+            opacity: 0.10;   /* 10% opacity */
+         ">
+        </div>
+        <div class="relative container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-10">
             <!-- Logo -->
             <div class="flex-shrink-0 h-full flex items-center">
                 <a href="" class="h-full object-contain">
